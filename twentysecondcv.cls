@@ -147,60 +147,45 @@
 
 % Command for printing skill progress bars
 \newcommand\skills[1]{
-\renewcommand{\skills}{
 	\smartdiagram[bubble diagram]{#1}
 }
+
+\newcommand{\drawBars}[1]{
+    \begin{tikzpicture}
+			\foreach [count=\i] \x/\y in {#1}{
+				\draw[fill=maingray,maingray] (0,\i) rectangle (6,\i+0.3);
+				\draw[fill=white,mainblue](0,\i) rectangle (\y,\i+0.3);
+				\node [above right] at (0,\i+0.3) {\x};
+			}
+		\end{tikzpicture}
 }
 
-% Command for printing skill progress bars
-\newcommand\interests[1]{ 
-	\renewcommand{\interests}{
-		\begin{tikzpicture}
-			\foreach [count=\i] \x/\y in {#1}{
-				\draw[fill=maingray,maingray] (0,\i) rectangle (6,\i+0.4);
-				\draw[fill=white,mainblue](0,\i) rectangle (\y,\i+0.4);
-				\node [above right] at (0,\i+0.4) {\x};
-			}
-		\end{tikzpicture}
-	}
-}
-% Command for printing skill progress bars
-\newcommand\languages[1]{ 
-	\renewcommand{\languages}{
-		\begin{tikzpicture}
-			\foreach [count=\i] \x/\y in {#1}{
-				\draw[fill=maingray,maingray] (0,\i) rectangle (6,\i+0.4);
-				\draw[fill=white,mainblue](0,\i) rectangle (\y,\i+0.4);
-				\node [above right] at (0,\i+0.4) {\x};
-			}
-		\end{tikzpicture}
-	}
-}
-
-\newcommand\programmingLanguages[1]{ 
-	\renewcommand{\programmingLanguages}{
-		\begin{tikzpicture}
-			\foreach [count=\i] \x/\y in {#1}{
-				\draw[fill=maingray,maingray] (0,\i) rectangle (6,\i+0.4);
-				\draw[fill=white,mainblue](0,\i) rectangle (\y,\i+0.4);
-				\node [above right] at (0,\i+0.4) {\x};
-			}
-		\end{tikzpicture}
-	}
-}
 
 %----------------------------------------------------------------------------------------
 %  SIDEBAR LAYOUT
 %----------------------------------------------------------------------------------------
 
-\newcommand{\makeprofile}{
+\newcommand{\makeprofile}[6]{
   \begin{tikzpicture}[remember picture,overlay]
       \node [rectangle, fill=sidecolor, anchor=north, minimum width=9cm, minimum height=\paperheight+1cm] (box) at (-5cm,0.5cm){};
   \end{tikzpicture}
 
   %------------------------------------------------
 
-  \begin{textblock}{6}(0.5, 0.2)
+  \begin{textblock}{5}(0.5, 0.2)
+
+%------------------------------------------------
+		
+		\ifthenelse{\equal{\profilepic}{}}{}{
+			\begin{center}
+				\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+					\clip (600/2, 567/2) circle (567/2);
+					\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{\profilepic}};
+				\end{tikzpicture}
+			\end{center}
+		}
+
+		%------------------------------------------------
 
     %------------------------------------------------
     
@@ -243,26 +228,21 @@
 
     %------------------------------------------------
         
-        \profilesection{Skills}{4cm}
-    	\skills
-        
+        \profilesection{#1}{4cm}
+    	\skills{#2}
+    	
+    	
         %------------------------------------------------
-        \profilesection{Interests}{3cm} 
-        \interests
-        
-        \profilesection{Languages}{3cm}
-        \languages
-        
-        \profilesection{Programming\\Languages}{3cm}
-        \programmingLanguages
+        \profilesection{#3}{3cm} 
+        \drawBars{#4}
         
         
-        \end{textblock}
+        
+        
+    \end{textblock}
          
   
 }
-
-
 %----------------------------------------------------------------------------------------
 %	 COLOURED SECTION TITLE BOX
 %----------------------------------------------------------------------------------------
