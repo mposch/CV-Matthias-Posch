@@ -97,7 +97,7 @@
   \colorlet{header}{gray}
 \fi
 \colorlet{textcolor}{gray}
-\colorlet{headercolor}{gray}
+\colorlet{headercolor}{pblue}
 
 %----------------------------------------------------------------------------------------
 %	 MISC CONFIGURATIONS
@@ -141,6 +141,8 @@
 \newcommand{\profilepic}[1]{\renewcommand{\profilepic}{#1}}
 \newcommand{\cvname}[1]{\renewcommand{\cvname}{#1}}
 \newcommand{\cvjobtitle}[1]{\renewcommand{\cvjobtitle}{#1}}
+%%\newcommand{\cvdate}[1]{\renewcommand{\cvdate}{#1}}
+
 
 % Command for printing the contact information icons
 \newcommand*\icon[1]{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=1pt, fill=mainblue,mainblue,text=white] (char) {#1};}}
@@ -199,42 +201,33 @@
     %------------------------------------------------
     
         \vspace{5mm}
-    \renewcommand{\arraystretch}{1.6}
-    \begin{tabular}{p{1cm} @{\hskip 0.5cm}p{5cm}}
-        
-         
-      \ifthenelse{\equal{\cvnumberphone}{}}{}{
-            {$
-              \begin{array}{l}
-              \includegraphics[scale=0.1]{img/tel.png}
-              \end{array}
-              $} 
-            & \cvnumberphone\\}
-      \ifthenelse{\equal{\href{\cvsite}{\cvsite}}{}}{}{
-            {$
-              \begin{array}{l}
-              {\href{\cvsite}{\includegraphics[scale=0.05]{img/globe-512.png}}}
-              \end{array}
-              $} 
-            & \cvsite\\}
-      \ifthenelse{\equal{\cvmail}{}}{}{
-            {$
-              \begin{array}{l}
-              {\href{mailto:\cvmail}{\includegraphics[scale=0.05]{img/email.png}}}
-              \end{array}
-              $} 
-            & \href{mailto:\cvmail}{\cvmail}}
-    \end{tabular}
+  
+   	\renewcommand{\arraystretch}{1.6}
+		\begin{tabular}{p{0.5cm} @{\hskip 0.5cm}p{5cm}}
+		    \textsc{\Large{\icon{\Info}}} & \cvdate \\
+			\textsc{\large{\icon{@}}} & \href{mailto:\cvmail}{\cvmail} \\
+		    \textsc{\Large{\icon{\Telefon}}} & \cvnumberphone \\
+		    \textsc{\Large{\icon{\Mundus}}} & \href{\cvsite}{\cvsite} \\
+		    
+			%%\ifthenelse{\equal{\cvaddress}{}}{}{\textsc{\Large\icon{\Letter}} & \cvaddress\\}
+			%%\ifthenelse{\equal{\cvnumberphone}{}}{}{\textsc{\Large\icon{\Telefon}} & \cvnumberphone\\}
+%%			\ifthenelse{\equal{\cvsite}{}}{}{\textsc{\Large\icon{\Mundus}} & \cvsite\\}
+%%			\ifthenelse{\equal{\cvmail}{}}{}{\textsc{\large\icon{@}} & \href{mailto:\cvmail}{\cvmail}}
+		\end{tabular}
 
     %------------------------------------------------
         
-        \profilesection{#1}{4cm}
+        \profilesection{#1}{3cm}
     	\skills{#2}
     	
     	
         %------------------------------------------------
-        \profilesection{#3}{3cm} 
-        \drawBars{#4}
+     
+     %   \profilesection{#3}{3cm} 
+         % \ifthenelse{\equal{#4}{}}{}
+    % {
+    % \drawBars{#4}
+    % }   
         
         
         
@@ -262,8 +255,8 @@
 \renewcommand{\section}[1]{
   \par\vspace{\parskip}
 	{%
-		\LARGE\headingfont\color{headercolor}%
-		\@sectioncolor #1%
+		\LARGE\headingfont\color{headercolor}%  
+		#1%
 	}
   \par\vspace{\parskip}
 }
@@ -291,7 +284,7 @@
 }
 
 \newcommand{\twentyitem}[5]{%
-	#1&\parbox[t]{0.83\textwidth}{%
+	#1& \parbox[t]{0.80\textwidth}{%
 		\textbf{#2}% 
 		\hfill%
 		{\footnotesize#3}\\%
@@ -323,7 +316,7 @@
 %	 MARGINS AND LINKS
 %----------------------------------------------------------------------------------------
 
-\RequirePackage[left=7.6cm,top=0.1cm,right=1cm,bottom=0.2cm,nohead,nofoot]{geometry}
+\RequirePackage[left=7.6cm,top=0.1cm,right=2cm,bottom=0.2cm,nohead,nofoot]{geometry}
 
 
 \usepackage{smartdiagram}
@@ -348,3 +341,10 @@
     bubble text opacity = 1,
 }
 
+\newcommand{\makeEmptyProfile}{
+  \begin{tikzpicture}[remember picture,overlay]
+      \node [rectangle, fill=sidecolor, anchor=north, minimum width=9cm, minimum height=\paperheight+1cm] (box) at (-5cm,0.5cm){};
+  \end{tikzpicture}
+
+  %------------------------------------------------
+ }  % make empty profile
